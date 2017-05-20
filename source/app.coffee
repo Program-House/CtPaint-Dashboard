@@ -1,5 +1,6 @@
 cryptico = require "cryptico"
-app = Elm.Main.fullscreen()
+app = Elm.Main.fullscreen(localStorage.session or null)
+
 
 app.ports.encrypt.subscribe (payload) ->
     msg = payload[0]
@@ -12,6 +13,11 @@ app.ports.encrypt.subscribe (payload) ->
         encryption [ msg, cipher ]
     else
         console.log status
+
+
+app.ports.storeSession.subscribe (session) ->
+    localStorage.session = session
+
 
 encryption = (thing) ->
     app.ports.encryption thing
