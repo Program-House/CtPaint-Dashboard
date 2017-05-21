@@ -2,11 +2,13 @@ module Register.Fields exposing (..)
 
 import Html exposing (Html)
 import Main.Message exposing (Msg(..))
-import Register.Model exposing (Problem(..), Field(..))
+import Register.Model exposing (Field(..))
 import Register.Message exposing (RegisterMsg(..))
 import Register.Components as Components
 import Main.Components exposing (errorBox)
-import Register.Errors as Error
+
+
+--import Register.Errors as Error
 
 
 username : String -> List Problem -> Bool -> List (Html Msg)
@@ -29,7 +31,7 @@ username str problems showField =
             "username"
             "username"
             content
-            (error /= Nothing)
+            False
             (RegisterWrapper << UpdateUserNameField)
         , errorBox (Error.msg error)
         ]
@@ -64,7 +66,7 @@ emails firstEmail secondEmail problems showField =
             "email"
             "your email again"
             secondEmailContent
-            (error /= Nothing)
+            False
             (RegisterWrapper << UpdateSecondEmailField)
         , errorBox (Error.msg error)
         ]
@@ -92,13 +94,13 @@ passwords firstPassword secondPassword problems showField =
             "password"
             "enter a password"
             firstPasswordContent
-            (error /= Nothing)
+            False
             (RegisterWrapper << UpdateFirstPasswordField)
         , Components.password
             "password"
             "enter it again"
             secondPasswordContent
-            (error /= Nothing)
+            False
             (RegisterWrapper << UpdateSecondPasswordField)
         , errorBox (Error.msg error)
         ]

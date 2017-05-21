@@ -11,7 +11,6 @@ import Html.Attributes exposing (class, value, type_, placeholder)
 import Html.Events exposing (onInput, onClick, keyCode, on)
 import Main.Message exposing (Msg(..))
 import Register.Message exposing (RegisterMsg(..))
-import Register.Model exposing (Problem(..))
 import Main.Components as Components
 import Json.Decode as Json
 

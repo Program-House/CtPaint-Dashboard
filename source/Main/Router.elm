@@ -32,7 +32,7 @@ mainPaths paths model =
 
         "register" :: _ ->
             ( setState (Register.Init.model) model
-            , Auth.getPublicKey (always Cmd.none)
+            , Auth.getPublicKey
             )
 
         head :: rest_ ->

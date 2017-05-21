@@ -1,13 +1,16 @@
-module Main.Message exposing (Msg(..))
+module Main.Message exposing (Msg(..), Handler)
 
 import Navigation exposing (Location)
 import Register.Message exposing (RegisterMsg(..))
 import Http
 
 
+type alias Handler a =
+    a -> Msg
+
+
 type Msg
     = UrlChange Location
     | GoHome
     | RegisterWrapper RegisterMsg
-    | GetPublicKey (String -> Cmd Msg) (Result Http.Error String)
-    | GetEncryption ( String, String )
+    | GetPublicKey (Result Http.Error String)

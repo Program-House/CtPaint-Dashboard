@@ -1,7 +1,6 @@
 module Register.Model
     exposing
         ( RegisterModel
-        , Problem(..)
         , Field(..)
         )
 
@@ -12,26 +11,10 @@ type alias RegisterModel =
     , firstPassword : String
     , secondPassword : String
     , username : String
-    , problems : List Problem
-    , showProblems : Bool
+    , errors : List ( Field, String )
     , showFields : Bool
     , registrationPending : Bool
     }
-
-
-type Problem
-    = UserNameInvalid
-    | UserNameEmpty
-    | EmailsDontMatch
-    | FirstEmailEmpty
-    | SecondEmailEmpty
-    | EmailInvalid
-    | PasswordsDontMatch
-    | FirstPasswordEmpty
-    | SecondPasswordEmpty
-    | PasswordInvalid
-    | ConnectionFailure
-    | EmailAlreadyRegistered
 
 
 type Field

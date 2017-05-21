@@ -4,28 +4,17 @@ import Register.Message exposing (RegisterMsg(..))
 import Register.Model exposing (RegisterModel)
 import Main.Model exposing (Model, PageState(RegisterState))
 import Main.Message exposing (Msg)
-import Register.Submit as Submit
-import Register.Result as Result
-import Register.Problems as Problems
 
 
 update : RegisterMsg -> RegisterModel -> Maybe String -> ( PageState, Cmd Msg )
 update message model publicKey =
     case message of
-        BeginRegister ->
-            Submit.begin publicKey (Problems.set model)
+        AttemptRegistration ->
+            pack model
 
-        SubmitRegistration cipher ->
-            Submit.submit cipher model
-
+        --Submit.submit cipher model
         RegistrationResult result ->
-            ( Result.handle result model, Cmd.none )
-
-        HandleEnter isEnter ->
-            if isEnter then
-                update BeginRegister model publicKey
-            else
-                ( RegisterState model, Cmd.none )
+            pack model
 
         UpdateUserNameField str ->
             pack { model | username = str }

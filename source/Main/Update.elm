@@ -2,7 +2,6 @@ module Main.Update exposing (update)
 
 import Main.Model exposing (Model, PageState(..))
 import Main.Message exposing (Msg(..))
-import Register.Message exposing (RegisterMsg(..))
 import Register.Update as Register
 import Main.Router as Router
 import Navigation
@@ -29,30 +28,14 @@ update message model =
                 _ ->
                     ( model, Cmd.none )
 
-        GetPublicKey next (Ok key) ->
+        GetPublicKey (Ok key) ->
             { model
                 | publicKey = Just key
             }
-                ! [ next key ]
+                ! []
 
-        GetPublicKey next (Err err) ->
+        GetPublicKey (Err err) ->
             { model
                 | publicKey = Nothing
             }
-                ! [ Auth.getPublicKey next ]
-
-        GetEncryption ( next, cipherText ) ->
-            case next of
-                "Register" ->
-                    case model.pageState of
-                        RegisterState registerModel ->
-                            Register.handle
-                                (SubmitRegistration cipherText)
-                                model
-                                registerModel
-
-                        _ ->
-                            ( model, Cmd.none )
-
-                _ ->
-                    ( model, Cmd.none )
+                ! [ Auth.getPublicKey ]
