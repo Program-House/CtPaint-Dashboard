@@ -1,20 +1,14 @@
 module Main.Model exposing (..)
 
-import Navigation exposing (Location)
 import Register.Model exposing (RegisterModel)
 import Home.Model exposing (HomeModel)
+import Session.Model exposing (Session)
 
 
 type alias Model =
     { pageState : PageState
-    , user : Maybe User
+    , session : Maybe Session
     , publicKey : Maybe String
-    }
-
-
-type alias User =
-    { name : String
-    , email : String
     }
 
 

@@ -21,3 +21,14 @@ app.ports.storeSession.subscribe (session) ->
 
 encryption = (thing) ->
     app.ports.encryption thing
+
+
+handleStorage = (event) ->
+    isLocalStorage = event.storageArea is localStorage
+    isSession = event.key is "session"
+
+    if isLocalStorage and isSession
+        app.ports.onSessionChange.send event.newValue
+
+
+window.addEventListener "storage", handleStorage, false

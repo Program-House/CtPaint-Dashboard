@@ -1,7 +1,6 @@
 module Register.Init exposing (model)
 
 import Main.Model exposing (Model, PageState(..))
-import Navigation exposing (Location)
 import Register.Model
     exposing
         ( RegisterModel
