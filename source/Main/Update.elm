@@ -5,7 +5,6 @@ import Main.Message exposing (Msg(..))
 import Register.Update as Register
 import Main.Router as Router
 import Navigation
-import Main.Auth as Auth
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -38,4 +37,4 @@ update message model =
             { model
                 | publicKey = Nothing
             }
-                ! [ Auth.getPublicKey ]
+                ! []

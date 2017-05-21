@@ -8,6 +8,7 @@ import Register.Message exposing (RegisterMsg(..))
 import Main.Message exposing (Msg(..))
 import Main.Components exposing (card, words, errorBox, warning)
 import Register.Components.Fields as Fields
+import Register.Components.RegisterButton as RegisterButton
 
 
 --import Register.Components as Components
@@ -24,24 +25,19 @@ view model =
                     model.username
                     model.errors
                     model.showFields
+                , Fields.emails
+                    model.firstEmail
+                    model.secondEmail
+                    model.errors
+                    model.showFields
+                , Fields.passwords
+                    model.firstPassword
+                    model.secondPassword
+                    model.errors
+                    model.showFields
+                , model.errors
+                    |> List.isEmpty
+                    |> RegisterButton.view
+                    |> List.singleton
                 ]
         ]
-
-
-
---, Fields.username
---    model.username
---    problemsToShow
---    model.showFields
---, Fields.emails
---    model.firstEmail
---    model.secondEmail
---    problemsToShow
---    model.showFields
---, Fields.passwords
---    model.firstPassword
---    model.secondPassword
---    problemsToShow
---    model.showFields
---, [ Components.register True ]
---]
