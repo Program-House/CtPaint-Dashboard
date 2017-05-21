@@ -4,14 +4,29 @@ import Register.Message exposing (RegisterMsg(..))
 import Register.Model exposing (RegisterModel)
 import Main.Model exposing (Model, PageState(RegisterState))
 import Main.Message exposing (Msg)
+import Register.Validate exposing (getErrors)
 
 
 update : RegisterMsg -> RegisterModel -> Maybe String -> ( PageState, Cmd Msg )
 update message model publicKey =
     case message of
         AttemptRegistration ->
-            pack model
+            let
+                errors =
+                    getErrors model
+            in
+                if List.isEmpty errors then
+                    pack
+                        { model
+                            | showFields = False
+                        }
+                else
+                    pack
+                        { model
+                            | errors = errors
+                        }
 
+        --pack model
         --Submit.submit cipher model
         RegistrationResult result ->
             pack model
