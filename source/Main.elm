@@ -7,11 +7,12 @@ import Main.View exposing (view)
 import Main.Subscriptions exposing (subscriptions)
 import Main.Update exposing (update)
 import Main.Init as Init
+import Json.Decode exposing (Value)
 
 
-main : Program Never Model Msg
+main : Program Value Model Msg
 main =
-    Navigation.program
+    Navigation.programWithFlags
         UrlChange
         { init = Init.tuple
         , view = view

@@ -10,7 +10,7 @@ import SuccessfulRegister.View as SuccessfulRegister
 
 
 view : Model -> Html Msg
-view { location, pageState } =
+view { pageState } =
     case pageState of
         RegisterState model ->
             Register.view model

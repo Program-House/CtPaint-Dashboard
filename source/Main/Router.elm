@@ -9,14 +9,12 @@ import Main.Auth as Auth
 
 handle : Location -> Model -> ( Model, Cmd Msg )
 handle location model =
-    model
-        |> setLocation location
-        |> handlePath
+    handlePath location model
 
 
-handlePath : Model -> ( Model, Cmd Msg )
-handlePath model =
-    case String.split "/" model.location.pathname of
+handlePath : Location -> Model -> ( Model, Cmd Msg )
+handlePath location model =
+    case String.split "/" location.pathname of
         [] ->
             dne model
 
@@ -51,11 +49,6 @@ dne model =
         model
     , Cmd.none
     )
-
-
-setLocation : Location -> Model -> Model
-setLocation location model =
-    { model | location = location }
 
 
 setState : PageState -> Model -> Model

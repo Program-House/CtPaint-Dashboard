@@ -7,7 +7,6 @@ import Register.Update as Register
 import Main.Router as Router
 import Navigation
 import Main.Auth as Auth
-import Debug exposing (log)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

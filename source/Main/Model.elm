@@ -6,8 +6,7 @@ import Home.Model exposing (HomeModel)
 
 
 type alias Model =
-    { location : Location
-    , pageState : PageState
+    { pageState : PageState
     , user : Maybe User
     , publicKey : Maybe String
     }

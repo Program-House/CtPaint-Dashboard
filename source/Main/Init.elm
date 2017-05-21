@@ -4,17 +4,17 @@ import Main.Model exposing (..)
 import Main.Message exposing (Msg(..))
 import Navigation exposing (Location)
 import Main.Router as Router
+import Json.Decode exposing (Value)
 
 
-tuple : Location -> ( Model, Cmd Msg )
-tuple location =
-    Router.handle location (model location)
+tuple : Value -> Location -> ( Model, Cmd Msg )
+tuple json location =
+    Router.handle location model
 
 
-model : Location -> Model
-model location =
-    { location = location
-    , pageState = None
+model : Model
+model =
+    { pageState = None
     , user = Nothing
     , publicKey = Nothing
     }
