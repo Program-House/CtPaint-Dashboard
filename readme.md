@@ -1,2 +1,0 @@
-# CtPaint - Dashboard
-
