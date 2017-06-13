@@ -6,7 +6,7 @@ import Html.Events exposing (onSubmit)
 import Register.Model exposing (RegisterModel)
 import Register.Message exposing (RegisterMsg(..))
 import Main.Message exposing (Msg(..))
-import Main.Components exposing (card, words, errorBox, warning)
+import Main.Components exposing (card, words)
 import Register.Components.Fields as Fields
 
 

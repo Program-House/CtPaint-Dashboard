@@ -26,8 +26,6 @@ update message model publicKey =
                             | errors = errors
                         }
 
-        --pack model
-        --Submit.submit cipher model
         RegistrationResult result ->
             pack model
 
@@ -45,6 +43,10 @@ update message model publicKey =
 
         UpdateSecondPasswordField str ->
             pack { model | secondPassword = str }
+
+
+
+-- UTIL
 
 
 pack : RegisterModel -> ( PageState, Cmd Msg )
