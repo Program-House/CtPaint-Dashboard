@@ -1,9 +1,9 @@
-module Page.Register exposing (view)
+module Page.Login exposing (view)
 
 import Html exposing (Html, Attribute, p, div, input, text, form, a)
 import Html.Attributes exposing (class, type_, value, placeholder, hidden)
 import Html.Events exposing (onInput, onClick, onSubmit)
-import Types.Register exposing (Model, Message(..), Field(..))
+import Types.Login exposing (Model, Message(..), Field(..))
 
 
 view : Model -> Html Message
@@ -15,45 +15,23 @@ view model =
 
         errorView_ : Field -> Html Message
         errorView_ =
-            errorView model.errors
+            errorView model.fieldErrors
     in
         div
-            [ class "card solitary register" ]
+            [ class "card solitary" ]
             [ form
-                [ onSubmit AttemptRegistration ]
-                [ p [] [ text "Account Registration" ]
-                , field
-                    "Username"
-                    [ value_ model.username
-                    , onInput_ Username
-                    ]
-                , errorView_ Username
-                , field
+                [ onSubmit AttemptLogin ]
+                [ field
                     "Email"
                     [ value_ model.email
                     , onInput_ Email
                     ]
                 , errorView_ Email
                 , field
-                    "Confirm Email"
-                    [ value_ model.emailConfirm
-                    , onInput_ EmailConfirm
-                    ]
-                , errorView_ EmailConfirm
-                , field
                     "Password"
                     [ value_ model.password
-                    , type_ "password"
                     , onInput_ Password
                     ]
-                , errorView_ Password
-                , field
-                    "Password Confirm"
-                    [ value_ model.passwordConfirm
-                    , type_ "password"
-                    , onInput_ PasswordConfirm
-                    ]
-                , errorView_ PasswordConfirm
                   -- This input is here, because without it
                   -- the enter key does not cause submission
                 , input
@@ -62,8 +40,8 @@ view model =
                     ]
                     []
                 , a
-                    [ onClick AttemptRegistration ]
-                    [ text "submit" ]
+                    [ onClick AttemptLogin ]
+                    [ text "Log in" ]
                 ]
             ]
 

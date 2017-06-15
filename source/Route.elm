@@ -4,8 +4,6 @@ import UrlParser as Url exposing (parseHash, s, (</>), string, oneOf, Parser)
 import Navigation exposing (Location)
 import Html.Attributes as Attributes
 import Html exposing (Attribute)
-import Main.Model as Page exposing (Model)
-import Main.Message exposing (Message(..))
 import Types.Route as Route exposing (Route(..))
 
 

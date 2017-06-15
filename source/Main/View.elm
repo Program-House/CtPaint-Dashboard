@@ -5,6 +5,7 @@ import Main.Model exposing (Model)
 import Main.Message exposing (Message(..))
 import Types.Page exposing (Page(..))
 import Page.Register as Register
+import Page.Login as Login
 
 
 view : Model -> Html Message
@@ -15,6 +16,9 @@ view model =
 
         Register subModel ->
             Html.map RegisterMessage (Register.view subModel)
+
+        Login subModel ->
+            Html.map LoginMessage (Login.view subModel)
 
         _ ->
             p [] [ text "????" ]

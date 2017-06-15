@@ -3,6 +3,7 @@ module Update.Route exposing (..)
 import Types.Route as Route exposing (Route)
 import Types.Page as Page
 import Types.Register as Register
+import Types.Login as Login
 import Main.Message exposing (Message(..))
 import Main.Model exposing (Model)
 
@@ -17,7 +18,10 @@ set maybeRoute model =
             { model | page = Page.Home } ! []
 
         Just (Route.Login) ->
-            { model | page = Page.Login } ! []
+            { model
+                | page = Page.Login Login.init
+            }
+                ! []
 
         Just (Route.Logout) ->
             model ! []
