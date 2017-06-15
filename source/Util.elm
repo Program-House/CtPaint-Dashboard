@@ -10,3 +10,8 @@ module Util exposing (..)
 meaning you can use it at the end of a pipeline and have the precedence work out.
 -}
 infixl 0 :=
+
+
+isntEmpty : List a -> Bool
+isntEmpty =
+    not << List.isEmpty

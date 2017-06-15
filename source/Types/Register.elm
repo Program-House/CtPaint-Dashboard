@@ -42,6 +42,6 @@ init =
     , password = ""
     , passwordConfirm = ""
     , errors = []
-    , showFields = False
+    , showFields = True
     , registrationPending = False
     }
