@@ -1,32 +1,54 @@
-.button
-  border-top 2px solid ignorable1
-  border-left 2px solid ignorable1
-  border-right 2px solid ignorable3
-  border-bottom 2px solid ignorable3
-  
-  outline none
-  font-family HFNSS
-  color pointColor
-  font-size 2em
-  background ignorable2
-  -webkit-font-smoothing none
-  font-smooth none
-  min-width 96px
-  
-  &:hover
-    color pointier
-  
-  &:active
-    border-top 2px solid ignorable3
-    border-left 2px solid ignorable3
-    border-right 2px solid ignorable1
-    border-bottom 2px solid ignorable1
+a
+    font-family hfnss
+    color pointColor
+    -webkit-font-smoothing none
+    margin 8px
+    padding 0
+    font-size 2em
     
-  &.not-ready
-    color ignorable0
-    background ignorable1
+    border-top 2px solid ignorable1
+    border-left 2px solid ignorable1
+    border-right 2px solid ignorable3
+    border-bottom 2px solid ignorable3
+    
+    background ignorable2
+    display inline-block
+    
+    padding-top 4px
+    padding-bottom 4px
+    padding-left 8px
+    padding-right 8px
+    
+    cursor pointer
+    
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+    
+    &:hover
+        color pointier
+        
     &:active
-      border-top 2px solid ignorable1
-      border-left 2px solid ignorable1
-      border-right 2px solid ignorable3
-      border-bottom 2px solid ignorable3
+        border-top 2px solid ignorable3
+        border-left 2px solid ignorable3
+        border-right 2px solid ignorable1
+        border-bottom 2px solid ignorable1
+        
+    &.selected
+        border-top 2px solid ignorable3
+        border-left 2px solid ignorable3
+        border-right 2px solid ignorable1
+        border-bottom 2px solid ignorable1
+        
+    &.nulled
+        background ignorable1
+        
+        &:hover
+            color pointColor
+            
+        &:active
+            border-top 2px solid ignorable1
+            border-left 2px solid ignorable1
+            border-right 2px solid ignorable3
+            border-bottom 2px solid ignorable3

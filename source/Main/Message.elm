@@ -1,16 +1,15 @@
-module Main.Message exposing (Msg(..), Handler)
+module Main.Message exposing (Message(..), Handler)
 
-import Navigation exposing (Location)
-import Register.Message exposing (RegisterMsg(..))
-import Http
+import Types.Route exposing (Route(..))
+import Types.Register as Register
+import Types.Login as Login
+
+
+type Message
+    = SetRoute (Maybe Route)
+    | RegisterMessage Register.Message
+    | LoginMessage Login.Message
 
 
 type alias Handler a =
-    a -> Msg
-
-
-type Msg
-    = UrlChange Location
-    | GoHome
-    | RegisterWrapper RegisterMsg
-    | GetPublicKey (Result Http.Error String)
+    a -> Message

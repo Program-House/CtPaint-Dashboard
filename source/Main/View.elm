@@ -1,28 +1,24 @@
 module Main.View exposing (view)
 
-import Html exposing (..)
-import Main.Model exposing (..)
-import Main.Message exposing (..)
-import Home.View as Home
-import Error.View as Error
-import Register.View as Register
-import SuccessfulRegister.View as SuccessfulRegister
+import Html exposing (Html, div, p, text)
+import Main.Model exposing (Model)
+import Main.Message exposing (Message(..))
+import Types.Page exposing (Page(..))
+import Page.Register as Register
+import Page.Login as Login
 
 
-view : Model -> Html Msg
-view { pageState } =
-    case pageState of
-        RegisterState model ->
-            Register.view model
+view : Model -> Html Message
+view model =
+    case model.page of
+        Home ->
+            p [] [ text "Home!" ]
 
-        SuccessfulRegisterState email ->
-            SuccessfulRegister.view email
+        Register subModel ->
+            Html.map RegisterMessage (Register.view subModel)
 
-        ErrorState message ->
-            Error.view message
+        Login subModel ->
+            Html.map LoginMessage (Login.view subModel)
 
-        HomeState model ->
-            Home.view
-
-        None ->
-            Error.view "No page state"
+        _ ->
+            p [] [ text "????" ]

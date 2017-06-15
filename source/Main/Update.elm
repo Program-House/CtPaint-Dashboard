@@ -1,40 +1,38 @@
 module Main.Update exposing (update)
 
-import Main.Model exposing (Model, PageState(..))
-import Main.Message exposing (Msg(..))
-import Register.Update as Register
-import Main.Router as Router
-import Navigation
+import Main.Model as Page exposing (Model)
+import Main.Message exposing (Message(..))
+import Update.Route as Route
+import Update.Register as Register
+import Update.Login as Login
+import Types.Page exposing (Page(..))
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Message -> Model -> ( Model, Cmd Message )
 update message model =
-    case message of
-        UrlChange location ->
-            Router.handle location model
+    case ( message, model.page ) of
+        ( SetRoute maybeRoute, _ ) ->
+            Route.set maybeRoute model
 
-        GoHome ->
-            ( model, Navigation.newUrl "/" )
+        ( RegisterMessage subMessage, Register subModel ) ->
+            let
+                ( newSubModel, cmd ) =
+                    Register.update subMessage subModel
+            in
+                { model
+                    | page = Register newSubModel
+                }
+                    ! [ Cmd.map RegisterMessage cmd ]
 
-        RegisterWrapper registerMsg ->
-            case model.pageState of
-                RegisterState registerModel ->
-                    Register.handle
-                        registerMsg
-                        model
-                        registerModel
+        ( LoginMessage subMessage, Login subModel ) ->
+            let
+                ( newSubModel, cmd ) =
+                    Login.update subMessage subModel
+            in
+                { model
+                    | page = Login newSubModel
+                }
+                    ! [ Cmd.map LoginMessage cmd ]
 
-                _ ->
-                    ( model, Cmd.none )
-
-        GetPublicKey (Ok key) ->
-            { model
-                | publicKey = Just key
-            }
-                ! []
-
-        GetPublicKey (Err err) ->
-            { model
-                | publicKey = Nothing
-            }
-                ! []
+        _ ->
+            model ! []

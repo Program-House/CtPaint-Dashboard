@@ -1,16 +1,9 @@
 module Main.Subscriptions exposing (subscriptions)
 
-import Main.Message exposing (..)
-import Main.Model exposing (..)
+import Main.Model exposing (Model)
+import Main.Message exposing (Message(..))
 
 
---import Ports exposing (..)
-
-
-subscriptions : Model -> Sub Msg
+subscriptions : Model -> Sub Message
 subscriptions model =
     Sub.none
-
-
-
---encryption GetEncryption

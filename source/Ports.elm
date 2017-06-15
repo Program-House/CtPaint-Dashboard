@@ -1,7 +1,7 @@
 port module Ports exposing (..)
 
 
-port encrypt : ( String, String, String ) -> Cmd msg
+port toJS : String -> Cmd message
 
 
-port encryption : (( String, String ) -> msg) -> Sub msg
+port fromJS : (String -> message) -> Sub message
