@@ -5,6 +5,7 @@ import Navigation exposing (Location)
 import Html.Attributes as Attributes
 import Html exposing (Attribute)
 import Types.Route as Route exposing (Route(..))
+import Debug exposing (log)
 
 
 route : Parser (Route -> a) a
@@ -14,6 +15,7 @@ route =
         , Url.map Route.Login (s "login")
         , Url.map Route.Logout (s "logout")
         , Url.map Route.Register (s "register")
+        , Url.map Route.Verify (s "verify" </> string </> string)
         ]
 
 
@@ -37,6 +39,9 @@ routeToString page =
 
                 Route.Register ->
                     [ "register" ]
+
+                Route.Verify email code ->
+                    [ "verify", log "email" email, code ]
     in
         "#/" ++ (String.join "/" pieces)
 

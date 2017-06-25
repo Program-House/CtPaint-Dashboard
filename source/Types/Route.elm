@@ -6,3 +6,4 @@ type Route
     | Login
     | Logout
     | Home
+    | Verify String String

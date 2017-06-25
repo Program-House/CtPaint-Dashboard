@@ -5,6 +5,7 @@ import Main.Message exposing (Message(..))
 import Update.Route as Route
 import Update.Register as Register
 import Update.Login as Login
+import Update.Verify as Verify
 import Types.Page exposing (Page(..))
 
 
@@ -33,6 +34,16 @@ update message model =
                     | page = Login newSubModel
                 }
                     ! [ Cmd.map LoginMessage cmd ]
+
+        ( VerifyMessage subMessage, Verify subModel ) ->
+            let
+                ( newSubModel, cmd ) =
+                    Verify.update subMessage subModel
+            in
+                { model
+                    | page = Verify newSubModel
+                }
+                    ! [ Cmd.map VerifyMessage cmd ]
 
         _ ->
             model ! []
