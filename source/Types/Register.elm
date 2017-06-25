@@ -1,10 +1,17 @@
 module Types.Register exposing (..)
 
 import Http exposing (Error)
-import Json.Decode exposing (Value)
+import Json.Decode as Decode
+import Json.Encode as Encode
+import Util exposing ((:=))
 
 
-type alias Model =
+type Model
+    = Registering State
+    | Success String
+
+
+type alias State =
     { username : String
     , email : String
     , emailConfirm : String
@@ -27,21 +34,36 @@ type Field
 type Message
     = UpdateField Field String
     | AttemptRegistration
-    | RegistrationResult (Result Error Value)
+    | RegistrationSuccess String
+    | RegistrationFail String
 
 
 
--- INIT
+-- INIT --
 
 
 init : Model
 init =
-    { username = ""
-    , email = ""
-    , emailConfirm = ""
-    , password = ""
-    , passwordConfirm = ""
-    , errors = []
-    , showFields = True
-    , registrationPending = False
-    }
+    Registering
+        { username = ""
+        , email = ""
+        , emailConfirm = ""
+        , password = ""
+        , passwordConfirm = ""
+        , errors = []
+        , showFields = True
+        , registrationPending = False
+        }
+
+
+
+-- ENCODER --
+
+
+encode : State -> Encode.Value
+encode { email, password, username } =
+    Encode.object
+        [ "email" := (Encode.string email)
+        , "password" := (Encode.string password)
+        , "username" := (Encode.string username)
+        ]

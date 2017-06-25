@@ -1,21 +1,45 @@
 module Page.Register exposing (view)
 
-import Html exposing (Html, Attribute, p, div, input, text, form, a)
+import Html exposing (Html, Attribute, p, br, div, input, text, form, a)
 import Html.Attributes exposing (class, type_, value, placeholder, hidden)
 import Html.Events exposing (onInput, onClick, onSubmit)
-import Types.Register exposing (Model, Message(..), Field(..))
+import Types.Register exposing (Model(..), State, Message(..), Field(..))
 
 
 view : Model -> Html Message
 view model =
+    case model of
+        Registering state ->
+            registeringView state
+
+        Success email ->
+            successView email
+
+
+successView : String -> Html Message
+successView email =
+    div
+        [ class "card solitary register-success" ]
+        [ p
+            []
+            [ text "Success! Your account is registered" ]
+        , br [] []
+        , p
+            []
+            [ text ("A verification email was sent to " ++ email) ]
+        ]
+
+
+registeringView : State -> Html Message
+registeringView state =
     let
         value_ : String -> Attribute Message
         value_ =
-            value << valueIfShow model.showFields
+            value << valueIfShow state.showFields
 
         errorView_ : Field -> Html Message
         errorView_ =
-            errorView model.errors
+            errorView state.errors
     in
         div
             [ class "card solitary register" ]
@@ -24,32 +48,32 @@ view model =
                 [ p [] [ text "Account Registration" ]
                 , field
                     "Username"
-                    [ value_ model.username
+                    [ value_ state.username
                     , onInput_ Username
                     ]
                 , errorView_ Username
                 , field
                     "Email"
-                    [ value_ model.email
+                    [ value_ state.email
                     , onInput_ Email
                     ]
                 , errorView_ Email
                 , field
                     "Confirm Email"
-                    [ value_ model.emailConfirm
+                    [ value_ state.emailConfirm
                     , onInput_ EmailConfirm
                     ]
                 , errorView_ EmailConfirm
                 , field
                     "Password"
-                    [ value_ model.password
+                    [ value_ state.password
                     , type_ "password"
                     , onInput_ Password
                     ]
                 , errorView_ Password
                 , field
                     "Password Confirm"
-                    [ value_ model.passwordConfirm
+                    [ value_ state.passwordConfirm
                     , type_ "password"
                     , onInput_ PasswordConfirm
                     ]
