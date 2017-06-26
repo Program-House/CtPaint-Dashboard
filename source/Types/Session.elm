@@ -1,6 +1,6 @@
 module Types.Session exposing (..)
 
-import Json.Decode as Decode exposing (Decoder)
+import Json.Decode as Decode exposing (Decoder, Value)
 
 
 type alias Session =
@@ -11,6 +11,11 @@ type alias Session =
 
 
 -- DECODER --
+
+
+decodeFrom : Value -> Result String Session
+decodeFrom =
+    Decode.decodeValue decoder
 
 
 decoder : Decoder Session

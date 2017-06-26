@@ -7,21 +7,22 @@ import Types.Page exposing (Page(..))
 import View.Register as Register
 import View.Login as Login
 import View.Verify as Verify
+import View.Home as Home
 
 
 view : Model -> Html Message
 view model =
-    case model.page of
-        Home ->
-            p [] [ text "Home!" ]
+    case ( model.session, model.page ) of
+        ( Just session, Home ) ->
+            Home.view session
 
-        Register subModel ->
+        ( _, Register subModel ) ->
             Html.map RegisterMessage (Register.view subModel)
 
-        Login subModel ->
+        ( _, Login subModel ) ->
             Html.map LoginMessage (Login.view subModel)
 
-        Verify subModel ->
+        ( _, Verify subModel ) ->
             Html.map VerifyMessage (Verify.view subModel)
 
         _ ->

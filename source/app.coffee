@@ -35,7 +35,7 @@ if user isnt null
             flags = {}
 
             if err
-                console.log "B", err
+                console.log "Error getting attributes : ", err
                 return null
             else
                 flags = _.reduce attributes, makeFlags, flags
