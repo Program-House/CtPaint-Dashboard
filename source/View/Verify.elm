@@ -1,4 +1,4 @@
-module Page.Verify exposing (..)
+module View.Verify exposing (..)
 
 import Html exposing (Html, div, p, a, br, text)
 import Html.Attributes exposing (class)

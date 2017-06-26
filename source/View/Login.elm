@@ -1,83 +1,39 @@
-module Page.Register exposing (view)
+module View.Login exposing (view)
 
-import Html exposing (Html, Attribute, p, br, div, input, text, form, a)
+import Html exposing (Html, Attribute, p, div, input, text, form, a)
 import Html.Attributes exposing (class, type_, value, placeholder, hidden)
 import Html.Events exposing (onInput, onClick, onSubmit)
-import Types.Register exposing (Model(..), State, Message(..), Field(..))
+import Types.Login exposing (Model, Message(..), Field(..))
 
 
 view : Model -> Html Message
 view model =
-    case model of
-        Registering state ->
-            registeringView state
-
-        Success email ->
-            successView email
-
-
-successView : String -> Html Message
-successView email =
-    div
-        [ class "card solitary register-success" ]
-        [ p
-            []
-            [ text "Success! Your account is registered" ]
-        , br [] []
-        , p
-            []
-            [ text ("A verification email was sent to " ++ email) ]
-        ]
-
-
-registeringView : State -> Html Message
-registeringView state =
     let
         value_ : String -> Attribute Message
         value_ =
-            value << valueIfShow state.showFields
+            value << valueIfShow model.showFields
 
         errorView_ : Field -> Html Message
         errorView_ =
-            errorView state.errors
+            errorView model.fieldErrors
     in
         div
-            [ class "card solitary register" ]
+            [ class "card solitary" ]
             [ form
-                [ onSubmit AttemptRegistration ]
-                [ p [] [ text "Account Registration" ]
-                , field
-                    "Username"
-                    [ value_ state.username
-                    , onInput_ Username
-                    ]
-                , errorView_ Username
+                [ onSubmit AttemptLogin ]
+                [ p [] [ text "CtPaint Log In" ]
                 , field
                     "Email"
-                    [ value_ state.email
+                    [ value_ model.email
                     , onInput_ Email
                     ]
                 , errorView_ Email
                 , field
-                    "Confirm Email"
-                    [ value_ state.emailConfirm
-                    , onInput_ EmailConfirm
-                    ]
-                , errorView_ EmailConfirm
-                , field
                     "Password"
-                    [ value_ state.password
+                    [ value_ model.password
                     , type_ "password"
                     , onInput_ Password
                     ]
-                , errorView_ Password
-                , field
-                    "Password Confirm"
-                    [ value_ state.passwordConfirm
-                    , type_ "password"
-                    , onInput_ PasswordConfirm
-                    ]
-                , errorView_ PasswordConfirm
                   -- This input is here, because without it
                   -- the enter key does not cause submission
                 , input
@@ -86,8 +42,8 @@ registeringView state =
                     ]
                     []
                 , a
-                    [ onClick AttemptRegistration ]
-                    [ text "submit" ]
+                    [ onClick AttemptLogin ]
+                    [ text "Log in" ]
                 ]
             ]
 

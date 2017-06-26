@@ -4,9 +4,9 @@ import Html exposing (Html, div, p, text)
 import Main.Model exposing (Model)
 import Main.Message exposing (Message(..))
 import Types.Page exposing (Page(..))
-import Page.Register as Register
-import Page.Login as Login
-import Page.Verify as Verify
+import View.Register as Register
+import View.Login as Login
+import View.Verify as Verify
 
 
 view : Model -> Html Message
