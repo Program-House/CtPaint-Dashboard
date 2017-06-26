@@ -7,6 +7,7 @@ import Update.Register as Register
 import Update.Login as Login
 import Update.Verify as Verify
 import Types.Page exposing (Page(..))
+import Debug exposing (log)
 
 
 update : Message -> Model -> ( Model, Cmd Message )
@@ -44,6 +45,16 @@ update message model =
                     | page = Verify newSubModel
                 }
                     ! [ Cmd.map VerifyMessage cmd ]
+
+        ( LoginSuccess _, _ ) ->
+            let
+                _ =
+                    log "Logged in" "yep"
+            in
+                model ! []
+
+        ( LoginFail err, _ ) ->
+            model ! []
 
         _ ->
             model ! []

@@ -1,9 +1,5 @@
-app = Elm.Main.fullscreen()
-
 AmazonCognitoIdentity = require 'amazon-cognito-identity-js'
 CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool
-CognitoUserAttribute = AmazonCognitoIdentity.CognitoUserAttribute
-CognitoUser = AmazonCognitoIdentity.CognitoUser
 
 poolData =
     UserPoolId: "us-east-2_xc2oQp2ju"
@@ -11,43 +7,22 @@ poolData =
 
 userPool = new CognitoUserPool poolData
 
-app.ports.register.subscribe (registration) ->
-    
-    attr = (name, value) ->
-        payload =
-            Name: name
-            Value: value
+register = require "./Aws/register"
+verify = require "./Aws/verify"
+login = require "./Aws/login"
+init = require "./Aws/init"
 
-        new CognitoUserAttribute payload
+init userPool
 
-    dataEmail = attr "email", registration.email
-    dataNickname = attr "nickname", registration.username
+app = Elm.Main.fullscreen()
 
-    attributes = [ dataEmail, dataNickname ]
-
-    email = registration.email
-    password = registration.password
-
-    userPool.signUp email, password, attributes, null, (err, result) ->
-        if err
-            app.ports.registrationFail.send (String err)
-        else
-            app.ports.registrationSuccess.send result.user.username
+app.ports.register.subscribe (register app, userPool)
+app.ports.verify.subscribe (verify app, userPool)
+app.ports.login.subscribe (login app, userPool)
 
 
-app.ports.verify.subscribe (payload) ->
-    email = payload[0]
-    code = payload[1]
 
-    userData =
-        Username: email
-        Pool: userPool
 
-    user = new CognitoUser userData
-    user.confirmRegistration code, true, (err, result) ->
-        if err
-            app.ports.verificationFail.send (String err)
-        else
-            app.ports.verificationSuccess.send()
-            console.log result
+
+
 

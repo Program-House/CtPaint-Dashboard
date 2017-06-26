@@ -21,7 +21,8 @@ view model =
             [ class "card solitary" ]
             [ form
                 [ onSubmit AttemptLogin ]
-                [ field
+                [ p [] [ text "CtPaint Log In" ]
+                , field
                     "Email"
                     [ value_ model.email
                     , onInput_ Email
@@ -30,6 +31,7 @@ view model =
                 , field
                     "Password"
                     [ value_ model.password
+                    , type_ "password"
                     , onInput_ Password
                     ]
                   -- This input is here, because without it

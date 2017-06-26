@@ -2,6 +2,7 @@ module Update.Login exposing (update)
 
 import Types.Login exposing (Model, Message(..), Field(..))
 import Validate exposing (ifBlank)
+import Ports
 
 
 update : Message -> Model -> ( Model, Cmd Message )
@@ -17,7 +18,7 @@ update message model =
 
                 cmd =
                     if List.isEmpty errors then
-                        Cmd.none
+                        Ports.login ( model.email, model.password )
                     else
                         Cmd.none
             in

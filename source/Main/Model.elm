@@ -1,6 +1,7 @@
 module Main.Model exposing (..)
 
 import Types.Page exposing (Page(..))
+import Json.Decode as Decode exposing (Decoder)
 
 
 type alias Model =
@@ -12,5 +13,16 @@ type alias Model =
 type alias Session =
     { username : String
     , email : String
-    , token : String
     }
+
+
+
+-- DECODER --
+
+
+decoder : Decoder Session
+decoder =
+    Decode.map2
+        Session
+        (Decode.field "username" Decode.string)
+        (Decode.field "email" Decode.string)

@@ -20,9 +20,12 @@ paths =
 production = false
 
 
+
+
 gulp.task "coffee", ->
 
     config =
+        extensions: [ ".coffee" ]
         debug: not production
         cash: {}
 

@@ -1,8 +1,10 @@
 module Page.Verify exposing (..)
 
-import Html exposing (Html, div, p, br, text)
+import Html exposing (Html, div, p, a, br, text)
 import Html.Attributes exposing (class)
 import Types.Verify exposing (Model(..), Message(..))
+import Types.Route exposing (Route(..))
+import Route
 
 
 view : Model -> Html Message
@@ -21,6 +23,10 @@ view model =
                 , p
                     []
                     [ text (email ++ " is verified.") ]
+                , br [] []
+                , a
+                    [ Route.href Login ]
+                    [ text "Log In" ]
                 ]
 
         Fail err ->

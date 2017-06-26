@@ -11,6 +11,8 @@ type Message
     | RegisterMessage Register.Message
     | LoginMessage Login.Message
     | VerifyMessage Verify.Message
+    | LoginSuccess ()
+    | LoginFail String
 
 
 type alias Handler a =
