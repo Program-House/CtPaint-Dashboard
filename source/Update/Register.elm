@@ -27,20 +27,29 @@ updateState message state =
             let
                 errors =
                     validate state
-
-                cmd =
-                    if List.isEmpty errors then
-                        Ports.register (Register.encode state)
-                    else
-                        Cmd.none
-
-                model =
-                    Registering
-                        { state
-                            | errors = errors
-                        }
             in
-                model ! [ cmd ]
+                if List.isEmpty errors then
+                    let
+                        newState =
+                            { state
+                                | errors = errors
+                                , password = ""
+                                , passwordConfirm = ""
+                                , showFields = False
+                            }
+                    in
+                        (Registering newState)
+                            ! [ Ports.register (Register.encode state) ]
+                else
+                    let
+                        newState =
+                            { state
+                                | errors = errors
+                                , password = ""
+                                , passwordConfirm = ""
+                            }
+                    in
+                        (Registering newState) ! []
 
         RegistrationSuccess email ->
             (Success email) ! []
@@ -57,7 +66,10 @@ handleFail fail state =
         "UsernameExistsException: User already exists" ->
             { state
                 | errors =
-                    [ ( Email, "Email is already registered to an account" ) ]
+                    ( Email
+                    , "Email is already registered to an account"
+                    )
+                        |> List.singleton
             }
 
         other ->

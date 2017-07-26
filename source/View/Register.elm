@@ -4,6 +4,7 @@ import Html exposing (Html, Attribute, p, br, div, input, text, form, a)
 import Html.Attributes exposing (class, type_, value, placeholder, hidden)
 import Html.Events exposing (onInput, onClick, onSubmit)
 import Types.Register exposing (Model(..), State, Message(..), Field(..))
+import Debug exposing (log)
 
 
 view : Model -> Html Message
@@ -120,13 +121,12 @@ errorView errors fieldType =
                 Html.text ""
 
             error :: _ ->
-                let
-                    str =
-                        Tuple.second error
-                in
-                    div
-                        [ class "error-zone" ]
-                        [ p [] [ text str ] ]
+                div
+                    [ class "error-zone" ]
+                    [ p
+                        []
+                        [ text (Tuple.second error) ]
+                    ]
 
 
 
@@ -140,7 +140,7 @@ onInput_ =
 
 valueIfShow : Bool -> String -> String
 valueIfShow show str =
-    if show then
+    if log "show" show then
         str
     else
         "********"

@@ -2,6 +2,13 @@ _ = require "lodash"
 AmazonCognitoIdentity = require 'amazon-cognito-identity-js'
 CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool
 
+init = (app) ->
+    app.ports.register.subscribe (register app, userPool)
+    app.ports.verify.subscribe (verify app, userPool)
+    app.ports.login.subscribe (login app, userPool)
+            
+
+
 poolData =
     UserPoolId: "us-east-2_xc2oQp2ju"
     ClientId: "7r81o7o9pnar49lrh54mhv0u5s"
@@ -12,9 +19,10 @@ register = require "./Aws/register"
 verify = require "./Aws/verify"
 login = require "./Aws/login"
 
+
 user = userPool.getCurrentUser()
 
-attributesWeWant =  [ 
+attributesWeWant = [ 
     "nickname"
     "email"
 ]
@@ -40,15 +48,9 @@ if user isnt null
             else
                 flags = _.reduce attributes, makeFlags, flags
 
-            app = Elm.Main.fullscreen flags
-
-            app.ports.register.subscribe (register app, userPool)
-            app.ports.verify.subscribe (verify app, userPool)
-            app.ports.login.subscribe (login app, userPool)
-            
-
-
-
+            init (Elm.Main.fullscreen flags)
+else
+    init (Elm.Main.fullscreen null)
 
 
 

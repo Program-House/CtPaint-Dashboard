@@ -47,11 +47,10 @@ update message model =
                     ! [ Cmd.map VerifyMessage cmd ]
 
         ( LoginSuccess _, _ ) ->
-            let
-                _ =
-                    log "Logged in" "yep"
-            in
-                model ! []
+            { model
+                | page = Home
+            }
+                ! []
 
         ( LoginFail err, _ ) ->
             model ! []
